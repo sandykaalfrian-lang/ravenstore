@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raven Market - Digital Service & Virtual Number Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#09090b',
+                            card: '#18181b',
+                            cardBorder: '#27272a',
+                            pink: '#d4d4d8',
+                            hotPink: '#ffffff',
+                            purpleAccent: '#71717a',
+                        },
+                        pink: {
+                            100: '#ffffff',
+                            200: '#f4f4f5',
+                            300: '#e4e4e7',
+                            400: '#d4d4d8',
+                            500: '#a1a1aa',
+                            600: '#71717a',
+                            700: '#52525b',
+                            800: '#3f3f46',
+                            900: '#27272a',
+                            950: '#18181b',
+                        },
+                        purple: {
+                            300: '#f4f4f5',
+                            400: '#e4e4e7',
+                            500: '#a1a1aa',
+                            600: '#71717a',
+                            900: '#27272a',
+                            950: '#18181b',
+                        },
+                        emerald: {
+                            400: '#e4e4e7',
+                            500: '#d4d4d8',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    boxShadow: {
+                        'neon-pink': '0 0 25px rgba(255, 255, 255, 0.14)',
+                        'neon-glow': '0 0 30px rgba(255, 255, 255, 0.12), 0 0 12px rgba(212, 212, 216, 0.10)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --silver-light: #ffffff;
+            --silver-mid: #d4d4d8;
+            --silver-dark: #71717a;
+            --bg: #09090b;
+        }
+
+        * { -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg);
+            color: #f4f4f5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(ellipse at 15% 15%, rgba(255, 255, 255, 0.08), transparent 40%),
+                radial-gradient(ellipse at 85% 75%, rgba(161, 161, 170, 0.08), transparent 45%);
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -3;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(95px);
+            opacity: 0.12;
+            z-index: -3;
+            pointer-events: none;
+            animation: floatOrb 18s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, #ffffff, transparent 70%);
+            top: -8%; left: -8%;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, #a1a1aa, transparent 70%);
+            bottom: -10%; right: -5%;
+            animation-delay: -6s;
+        }
+        .orb-3 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, #d4d4d8, transparent 70%);
+            top: 45%; left: 55%;
+            animation-delay: -12s;
+        }
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 40px) scale(0.95); }
+        }
+
+        .bg-anime-wrapper {
+            position: fixed;
+            inset: 0;
+            background-image: url('https://i.imgur.com/IFPKkNp.jpeg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: -2;
+            filter: grayscale(100%) contrast(1.05) brightness(0.85);
+        }
+
+        .bg-anime-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 75% 25%, rgba(255, 255, 255, 0.07), transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(212, 212, 216, 0.06), transparent 50%);
+            pointer-events: none;
+        }
+
+        .bg-anime-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 12, 0.55) 0%,
+                rgba(24, 24, 27, 0.42) 50%,
+                rgba(9, 9, 11, 0.62) 100%
+            );
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: -1;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #d4d4d8, #52525b);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+
+        /* TEMA ABU-ABU PUTIH TRANSPARAN (FROSTED MONOCHROME GLASS) */
+        .glass-panel, .gradient-border {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(161, 161, 170, 0.05)) padding-box,
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(212, 212, 216, 0.14), rgba(255, 255, 255, 0.06)) border-box;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(18px) saturate(120%);
+            -webkit-backdrop-filter: blur(18px) saturate(120%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 10px 32px rgba(0, 0, 0, 0.28);
+            position: relative;
+        }
+
+        .glass-nav {
+            background: rgba(24, 24, 27, 0.45);
+            border-color: rgba(255, 255, 255, 0.16) !important;
+            backdrop-filter: blur(22px) saturate(130%);
+            -webkit-backdrop-filter: blur(22px) saturate(130%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(120deg, #ffffff 0%, #e4e4e7 35%, #a1a1aa 68%, #ffffff 100%);
+            background-size: 250% 250%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .card-glow {
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.35s ease,
+                        border-color 0.35s ease,
+                        background 0.35s ease;
+            will-change: transform;
+        }
+        .card-glow:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.45) !important;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(212, 212, 216, 0.08));
+            box-shadow:
+                0 20px 45px -15px rgba(0, 0, 0, 0.5),
+                0 0 25px -5px rgba(255, 255, 255, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        }
+
+        .card-shine { position: relative; overflow: hidden; }
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.09) 48%, rgba(255,255,255,0.16) 52%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .card-shine:hover::after { transform: translateX(120%); }
+
+        .btn-gradient {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(161, 161, 170, 0.22));
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.40), rgba(212, 212, 216, 0.30));
+            box-shadow: 0 0 26px rgba(255, 255, 255, 0.24), 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-gradient:active { transform: translateY(0); }
+
+        .btn-outline {
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+        }
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, 0.55) !important;
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.16) !important;
+        }
+
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 1; filter: drop-shadow(0 0 12px rgba(255,255,255,0.75)); }
+        }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
+
+        @keyframes scanLine {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .qr-scan { position: relative; overflow: hidden; }
+        .qr-scan::before {
+            content: '';
+            position: absolute;
+            left: 5%; right: 5%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, #a1a1aa, transparent);
+            box-shadow: 0 0 12px rgba(255,255,255,0.75);
+            border-radius: 4px;
+            animation: scanLine 3s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes statusPing {
+            0% { transform: scale(1); opacity: 0.7; }
+            80%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+        .status-ping::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: inherit;
+            animation: statusPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), rgba(161,161,170,0.3), rgba(255,255,255,0.5), transparent);
+            background-size: 200% 100%;
+            animation: gradientShift 4s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+
+        .nav-tab-btn, .mobile-tab-btn { position: relative; overflow: hidden; }
+        .nav-tab-btn:hover, .mobile-tab-btn:hover { text-shadow: 0 0 12px rgba(255,255,255,0.6); }
+
+        input, select, textarea {
+            background: rgba(255, 255, 255, 0.07) !important;
+            border-color: rgba(255, 255, 255, 0.22) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(255, 255, 255, 0.55) !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 0 15px rgba(255, 255, 255, 0.14);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-anim { animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(212,212,216,0.15), transparent 70%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .section-heading {
+            position: relative;
+            display: inline-block;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 60%; height: 2px;
+            background: linear-gradient(90deg, #ffffff, #a1a1aa, transparent);
+            border-radius: 2px;
+        }
+
+        @keyframes welcomeBounce {
+            0%   { opacity: 0; transform: scale(0.7) translateY(40px); }
+            60%  { opacity: 1; transform: scale(1.03) translateY(-6px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .welcome-popup-anim { animation: welcomeBounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        @keyframes emojiWave {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25%      { transform: rotate(-12deg) scale(1.15); }
+            75%      { transform: rotate(12deg) scale(1.15); }
+        }
+        .emoji-wave { display: inline-block; animation: emojiWave 1.4s ease-in-out infinite; }
+
+        @keyframes sparkleFloat {
+            0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+            30%  { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-40px) scale(1.2); }
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 14px;
+            pointer-events: none;
+            animation: sparkleFloat 2.4s ease-out infinite;
+        }
+
+        /* ============ INTRO VIDEO OVERLAY ============ */
+        #intro-overlay {
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #intro-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #intro-video {
+            animation: introZoom 14s ease-out forwards;
+            filter: grayscale(100%) contrast(1.05);
+        }
+        @keyframes introZoom {
+            0%   { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* ============ MUSIC TOGGLE ============ */
+        #music-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #music-toggle.playing {
+            border-color: rgba(255,255,255,0.6) !important;
+            box-shadow: 0 0 20px rgba(255,255,255,0.28), 0 0 45px rgba(255,255,255,0.14);
+        }
+        #music-toggle.playing #music-icon {
+            animation: musicPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50%      { transform: scale(1.15); }
+        }
+
+        /* ============ LOGIN SCREEN (ABU-ABU PUTIH TRANSPARAN) ============ */
+        #login-screen {
+            position: fixed; inset: 0; z-index: 300;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; padding: 24px;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,.12), transparent 35%),
+                radial-gradient(circle at 80% 75%, rgba(161,161,170,.14), transparent 38%),
+                linear-gradient(145deg, #09090b, #141417 55%, #1c1c20);
+        }
+        body.login-locked { overflow: hidden; }
+        body.login-locked > *:not(#login-screen) { display: none !important; }
+        .login-card {
+            position: relative; z-index: 2; width: min(100%, 430px);
+            padding: 42px 30px 30px; text-align: center; border-radius: 28px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(161, 161, 170, 0.06));
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            box-shadow: 0 0 55px rgba(255, 255, 255, 0.08), inset 0 1px rgba(255, 255, 255, 0.25);
+            animation: loginRise .8s cubic-bezier(.2,.8,.2,1) both;
+        }
+        .login-card::before {
+            content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+            background: linear-gradient(130deg, #ffffff, transparent 45%, #a1a1aa);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .login-logo {
+            width: 92px; height: 92px; padding: 3px; margin: 0 auto 22px;
+            border-radius: 26px; background: linear-gradient(135deg, #ffffff, #a1a1aa, #52525b);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.22);
+        }
+        .login-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 23px; filter: grayscale(20%); }
+        .login-kicker { color: #d4d4d8; font-size: 9px; font-weight: 800; letter-spacing: .24em; }
+        .login-card h1 { margin-top: 10px; font-size: clamp(28px,8vw,38px); font-weight: 900; letter-spacing: .08em; }
+        .login-card h1 span {
+            background: linear-gradient(90deg, #ffffff, #a1a1aa);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .login-desc { color: rgba(244, 244, 245, 0.72); font-size: 12px; margin: 9px 0 28px; }
+        #enter-market {
+            width: 100%; padding: 15px 18px; border-radius: 14px;
+            color: white; font-size: 11px; font-weight: 900; letter-spacing: .14em;
+            background: linear-gradient(100deg, rgba(255,255,255,0.28), rgba(161,161,170,0.20));
+            border: 1px solid rgba(255,255,255,0.38);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 24px rgba(255,255,255,0.14);
+            transition: .25s ease;
+        }
+        #enter-market:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(100deg, rgba(255,255,255,0.40), rgba(212,212,216,0.28));
+            box-shadow: 0 0 34px rgba(255,255,255,0.28);
+        }
+        #enter-market i { margin-left: 10px; }
+        .login-foot { display:flex; align-items:center; justify-content:center; gap:10px; margin-top:24px; color:#e4e4e7; font-size:9px; letter-spacing:.2em; }
+        .login-foot span { width:22px; height:1px; background:linear-gradient(90deg,transparent,#ffffff); }
+        .login-foot span:last-child { transform:rotate(180deg); }
+        .login-orb { position:absolute; width:260px; height:260px; border-radius:50%; filter:blur(85px); opacity:.20; pointer-events:none; }
+        .login-orb-one { top:-100px; left:-80px; background:#ffffff; }
+        .login-orb-two { bottom:-120px; right:-70px; background:#a1a1aa; }
+        .login-copyright { position:absolute; bottom:22px; left:12px; right:12px; text-align:center; color:rgba(244,244,245,.4); font-size:8px; letter-spacing:.16em; }
+        @keyframes loginRise { from { opacity:0; transform:translateY(22px) scale(.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+        @media (max-width:480px) { .login-card { padding:36px 22px 26px; } }
+
+        /* Dropzone Upload Styling */
+        .upload-dropzone {
+            border: 1.5px dashed rgba(255, 255, 255, 0.32);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .upload-dropzone:hover, .upload-dropzone.dragover {
+            border-color: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+        }
+    </style>
+</head>
+<body class="login-locked min-h-screen flex flex-col justify-between antialiased selection:bg-white selection:text-black pb-20 md:pb-0">
+
+    <section id="login-screen" aria-label="Halaman masuk Raven Market">
+        <div class="login-orb login-orb-one"></div>
+        <div class="login-orb login-orb-two"></div>
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="https://i.imgur.com/CQn7ePS.jpeg" alt="Raven Market">
+            </div>
+            <p class="login-kicker">WELCOME TO THE DIGITAL EXPERIENCE</p>
+            <h1>RAVEN <span>MARKET</span></h1>
+            <p class="login-desc">Temukan layanan digital dalam satu tempat.</p>
+            <button id="enter-market" type="button">
+                MASUK SEKARANG <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div class="login-foot"><span></span> SYSTEM ONLINE <span></span></div>
+        </div>
+        <p class="login-copyright">© 2026 RAVEN MARKET · FROSTED SILVER EXPERIENCE</p>
+    </section>
+
+
+    <!-- ============ INTRO VIDEO OVERLAY ============ -->
+    <div id="intro-overlay" class="fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer">
+        <video id="intro-video"
+               class="w-full h-full object-cover"
+               autoplay playsound playsinline
+               disablePictureInPicture
+               controlsList="nodownload"
+               poster="https://i.imgur.com/CQn7ePS.jpeg">
+            <source src=https://www.image2url.com/r2/default/videos/1794972017370-666208f1-a90e-4bce-bf58-ec5f221fde83.mp4" type="video/mp4">
+        </video>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/65 pointer-events-none"></div>
+
+        <div class="absolute top-6 left-6 md:top-8 md:left-8 z-10 flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-white/50 to-zinc-600 p-0.5 shadow-neon-pink">
+                <img src="https://i.imgur.com/CQn7ePS.jpeg" alt="Raven Market" class="w-full h-full object-cover rounded-[10px]">
+            </div>
+            <div>
+                <span class="text-sm font-extrabold tracking-wider gradient-text uppercase">RAVEN MARKET</span>
+                <span class="block text-[9px] text-zinc-300/80 tracking-widest font-semibold uppercase -mt-1">Frosted Silver Solution</span>
+            </div>
+        </div>
+
+        <button id="skip-btn" class="absolute bottom-8 right-8 z-10 px-5 py-2.5 rounded-xl bg-white/15 backdrop-blur-md border border-white/35 text-white font-bold text-xs md:text-sm flex items-center gap-2 hover:bg-white/25 hover:scale-105 active:scale-95 transition-all duration-300 shadow-neon-glow">
+            <span>Skip Intro</span>
+            <i class="fa-solid fa-forward text-xs"></i>
+        </button>
+
+        <div class="absolute bottom-8 left-8 z-10 text-white/60 text-[11px] flex items-center gap-2 pointer-events-none">
+            <i class="fa-solid fa-hand-pointer"></i>
+            <span class="hidden sm:inline">Klik di mana saja untuk skip</span>
+        </div>
+    </div>
+
+    <div class="bg-anime-wrapper"></div>
+    <div class="bg-anime-overlay"></div>
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <header class="sticky top-0 z-40 glass-nav border-b border-white/15 px-4 lg:px-8 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('nokos')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-white/50 to-zinc-600 p-0.5 shadow-neon-pink flex items-center justify-center group-hover:shadow-neon-glow transition-all duration-300 group-hover:scale-105 overflow-hidden">
+                    <img src="https://i.imgur.com/CQn7ePS.jpeg" alt="Raven Market" class="w-full h-full object-cover rounded-[10px]">
+                </div>
+                <div>
+                    <span class="text-lg md:text-xl font-extrabold tracking-wider gradient-text uppercase">RAVEN MARKET</span>
+                    <span class="block text-[9px] md:text-[10px] text-zinc-300/80 tracking-widest font-semibold uppercase -mt-1">Frosted Silver Solution</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-1 bg-white/5 p-1.5 rounded-full border border-white/15 backdrop-blur-md">
+                <button onclick="switchTab('nokos')" id="nav-btn-nokos" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-sim-card text-xs"></i> Jual Nokos
+                </button>
+                <button onclick="switchTab('services')" id="nav-btn-services" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-xs"></i> Jasa Bug WA
+                </button>
+                <button onclick="switchTab('qris')" id="nav-btn-qris" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-qrcode text-xs"></i> QRIS All Payment
+                </button>
+                <button onclick="switchTab('contact')" id="nav-btn-contact" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-headset text-xs"></i> Kontak & Media
+                </button>
+            </nav>
+
+            <div class="hidden sm:flex items-center space-x-3">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-zinc-200 text-xs font-semibold backdrop-blur-md">
+                    <span class="relative w-2 h-2 rounded-full bg-white status-ping"></span> 24/7 Active
+                </div>
+                <a href="https://wa.me/6285601099994?text=Halo%20Admin%20Raven%20Market,%20saya%20butuh%20bantuan" target="_blank" class="btn-gradient px-4 py-2 text-xs font-bold text-white rounded-lg flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Order Cepat
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <div class="mb-6 p-4 rounded-2xl glass-panel hero-banner flex items-center justify-between relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -left-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="flex items-center gap-3 z-10">
+                <div class="float-anim w-11 h-11 rounded-xl bg-white/10 border border-white/25 flex items-center justify-center text-white shrink-0">
+                    <i class="fa-solid fa-fire text-lg animate-pulse-glow"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">Raven Market Official Store 🤍🩶</h4>
+                    <p class="text-xs text-zinc-300/85">Semua layanan bergaransi dan diproses instan via Admin WhatsApp resmi kami.</p>
+                </div>
+            </div>
+            <button onclick="switchTab('qris')" class="hidden md:flex shrink-0 text-xs px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 items-center gap-1.5 transition-all duration-300">
+                Metode Bayar <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+        </div>
+
+        <section id="page-nokos" class="tab-content active">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-white/10 border border-white/25 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-sim-card text-white text-lg"></i>
+                        </span>
+                        <span class="section-heading">Nomor Kosong <span class="gradient-text">(Nokos OTP)</span></span>
+                    </h1>
+                    <p class="text-zinc-300/80 text-sm mt-2">Sewa nomor virtual instan untuk verifikasi WhatsApp, Telegram, TikTok, dan platform lainnya.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                        <input type="text" id="search-nokos" onkeyup="filterNokos()" placeholder="Cari layanan..." class="w-full sm:w-56 pl-9 pr-4 py-2.5 rounded-xl text-xs text-white placeholder-zinc-400 focus:outline-none transition-all duration-300">
+                    </div>
+                    <select id="filter-country" onchange="filterNokos()" class="rounded-xl px-3 py-2.5 text-xs text-zinc-200 focus:outline-none transition-all duration-300 cursor-pointer">
+                        <option value="ALL" class="bg-zinc-900">Semua Negara</option>
+                        <option value="ID" class="bg-zinc-900">Indonesia 🇮🇩</option>
+                        <option value="US" class="bg-zinc-900">Amerika Serikat 🇺🇸</option>
+                        <option value="MY" class="bg-zinc-900">Malaysia 🇲🇾</option>
+                        <option value="RU" class="bg-zinc-900">Rusia 🇷🇺</option>
+                        <option value="PH" class="bg-zinc-900">Filipina 🇵🇭</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="nokos-container"></div>
+        </section>
+
+        <section id="page-services" class="tab-content">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-white/10 border border-white/25 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation text-white text-lg"></i>
+                        </span>
+                        <span class="section-heading">Jasa Bug & <span class="gradient-text">Solusi WhatsApp</span></span>
+                    </h1>
+                    <p class="text-zinc-300/80 text-sm mt-2">Layanan profesional seputar WhatsApp, pemulihan akun banned, penanganan limit, hingga sistem bot.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="services-container"></div>
+
+            <div class="mt-8 p-6 rounded-2xl glass-panel gradient-border flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="float-anim w-12 h-12 rounded-xl bg-white/10 border border-white/25 text-white flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Privasi & Garansi Keamanan Terjaga</h3>
+                        <p class="text-xs text-zinc-300/80 mt-1">Seluruh layanan dikerjakan oleh tim ahli Raven Market dengan garansi uang kembali sesuai ketentuan paket.</p>
+                    </div>
+                </div>
+                <button onclick="switchTab('contact')" class="btn-gradient px-5 py-2.5 rounded-xl text-white font-bold text-xs shrink-0 flex items-center gap-2 relative z-10">
+                    <i class="fa-solid fa-headset text-sm"></i> Konsultasi Masalah
+                </button>
+            </div>
+        </section>
+
+        <!-- ============ TAB QRIS + UPLOAD BUKTI TRANSFER ============ -->
+        <section id="page-qris" class="tab-content">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center gap-2.5">
+                    <span class="w-10 h-10 rounded-xl bg-white/10 border border-white/25 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-qrcode text-white text-lg"></i>
+                    </span>
+                    <span>QRIS <span class="gradient-text">All Payment</span></span>
+                </h1>
+                <p class="text-zinc-300/80 text-sm mt-2">Satu QR Code untuk seluruh aplikasi E-Wallet dan Mobile Banking di Indonesia. Praktis, cepat, dan tanpa ribet.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Kolom Kiri: QRIS Code -->
+                <div class="lg:col-span-5 glass-panel gradient-border p-6 rounded-2xl text-center relative card-glow">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/25 text-zinc-200 text-xs font-bold mb-4">
+                        <i class="fa-solid fa-bolt"></i> Instant Settlement QRIS
+                    </span>
+
+                    <div class="qr-scan bg-white p-4 rounded-2xl inline-block shadow-neon-pink relative group mx-auto">
+                        <img src="https://i.imgur.com/du0ynNS.jpeg?text=QRIS+RAVEN+MARKET" alt="QRIS All Payment Raven Market" id="qris-img" class="w-64 h-64 object-contain mx-auto rounded-lg">
+                        <div class="absolute inset-0 bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                            <button onclick="zoomQR()" class="p-2.5 bg-zinc-800 border border-white/30 rounded-full text-white hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mt-4">RAVEN MARKET</h3>
+                    <p class="text-xs text-zinc-300/80">NMID: ID1029384756102</p>
+
+                    <div class="flex items-center justify-center gap-3 mt-5">
+                        <button onclick="downloadQR()" class="btn-outline px-4 py-2 rounded-xl text-zinc-200 text-xs font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-download"></i> Unduh QR
+                        </button>
+                        <button onclick="copyNMID()" class="btn-outline px-4 py-2 rounded-xl text-zinc-200 text-xs font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Salin NMID
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: E-Wallet + Panduan + Form Upload Bukti Transfer -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-panel p-6 rounded-2xl">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-wallet text-zinc-300"></i> Didukung Semua E-Wallet & Bank
+                        </h3>
+
+                        <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 text-center">
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-mobile-screen text-white block text-lg mb-1"></i> DANA
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-motorcycle text-white block text-lg mb-1"></i> GoPay
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-circle-dot text-white block text-lg mb-1"></i> OVO
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-bag-shopping text-white block text-lg mb-1"></i> ShopeePay
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-white block text-lg mb-1"></i> BCA
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-white block text-lg mb-1"></i> BRI
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-white block text-lg mb-1"></i> Mandiri
+                            </div>
+                            <div class="p-3 bg-white/5 rounded-xl border border-white/15 text-xs font-semibold text-zinc-200 hover:border-white/45 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-white block text-lg mb-1"></i> BNI
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORM KONFIRMASI & UPLOAD BUKTI TRANSFER -->
+                    <div class="glass-panel gradient-border p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-file-invoice-dollar text-zinc-300"></i> Upload Bukti Transfer & Konfirmasi
+                            </h3>
+                            <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-white/15 text-white border border-white/25 font-semibold">Wajib Lampirkan Foto</span>
+                        </div>
+
+                        <p class="text-xs text-zinc-300/80">
+                            Scan QRIS di samping sesuai nominal pesanan Anda, lalu unggah screenshot bukti transfer beserta nominalnya di bawah ini.
+                        </p>
+
+                        <form id="qris-confirm-form" onsubmit="submitPaymentProof(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-zinc-200 mb-1.5">
+                                        Nominal Pesanan (Rp) <span class="text-white">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-zinc-300">Rp</span>
+                                        <input type="text" id="qris-nominal-input" required placeholder="Contoh: 10.000"
+                                               oninput="formatNominalInput(this)"
+                                               class="w-full pl-9 pr-4 py-2.5 rounded-xl text-xs font-bold text-white placeholder-zinc-400 focus:outline-none transition-all">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-zinc-200 mb-1.5">
+                                        Nama Layanan / Catatan
+                                    </label>
+                                    <input type="text" id="qris-order-note" placeholder="Contoh: Nokos WhatsApp ID (1x)"
+                                           class="w-full px-3.5 py-2.5 rounded-xl text-xs text-white placeholder-zinc-400 focus:outline-none transition-all">
+                                </div>
+                            </div>
+
+                            <!-- TOMBOL UPLOAD FILE BUKTI TRANSFER -->
+                            <div>
+                                <label class="block text-[11px] font-semibold text-zinc-200 mb-1.5">
+                                    Foto Bukti Transfer <span class="text-white">*</span>
+                                </label>
+                                <input type="file" id="qris-proof-file" accept="image/*" class="hidden" onchange="handleProofUpload(event)">
+
+                                <div id="upload-dropzone" onclick="document.getElementById('qris-proof-file').click()"
+                                     class="upload-dropzone rounded-2xl p-5 text-center cursor-pointer relative">
+                                    <div id="upload-placeholder" class="space-y-2">
+                                        <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/25 flex items-center justify-center mx-auto text-white text-lg">
+                                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                                        </div>
+                                        <div>
+                                            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/15 border border-white/30 text-white text-xs font-bold hover:bg-white/25 transition-all">
+                                                <i class="fa-solid fa-image"></i> Pilih File Bukti Transfer
+                                            </span>
+                                        </div>
+                                        <p class="text-[11px] text-zinc-300/75">Format JPG, PNG, WEBP (Maks. 10MB)</p>
+                                    </div>
+
+                                    <!-- Preview Foto Bukti Transfer -->
+                                    <div id="upload-preview-box" class="hidden space-y-3">
+                                        <div class="relative inline-block max-w-full">
+                                            <img id="upload-preview-img" src="" alt="Preview Bukti Transfer" class="max-h-52 rounded-xl border border-white/30 mx-auto object-contain shadow-lg">
+                                            <button type="button" onclick="removeProofFile(event)" title="Hapus foto"
+                                                    class="absolute -top-2.5 -right-2.5 w-7 h-7 rounded-full bg-zinc-900 border border-white/40 text-white hover:bg-white hover:text-black flex items-center justify-center text-xs transition-all shadow-md">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </button>
+                                        </div>
+                                        <div class="flex items-center justify-center gap-2 text-xs text-zinc-200">
+                                            <i class="fa-solid fa-circle-check text-white"></i>
+                                            <span id="upload-file-name" class="font-medium truncate max-w-[220px]">bukti.jpg</span>
+                                            <span class="text-zinc-400">•</span>
+                                            <span class="underline text-white font-semibold">Ganti File</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-1">
+                                <button type="submit" class="btn-gradient w-full py-3 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-base"></i> Kirim Bukti Transfer & Nominal ke Admin
+                                </button>
+                                <p class="text-[10px] text-zinc-300/70 text-center mt-2">
+                                    <i class="fa-solid fa-circle-info mr-1"></i> Foto bukti transfer akan otomatis disalin ke clipboard agar mudah langsung ditempel (Paste) di chat WhatsApp Admin.
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-contact" class="tab-content">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="text-center">
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-white/10 border border-white/25 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-headset text-white text-lg"></i>
+                        </span>
+                        <span>Kontak Admin & <span class="gradient-text">Saluran Resmi</span></span>
+                    </h1>
+                    <p class="text-zinc-300/80 text-sm mt-2">Hubungi admin official Raven Market dan ikuti saluran media sosial kami untuk update stok harian.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel card-glow card-shine p-5 rounded-2xl flex items-center gap-4 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-white/50 to-zinc-600 p-0.5 shrink-0">
+                            <img src="https://i.imgur.com/CQn7ePS.jpeg?text=Admin" alt="Admin Raven Market" class="w-full h-full object-cover rounded-[14px]">
+                        </div>
+                        <div class="flex-grow relative z-10">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-white/15 border border-white/20 px-2 py-0.5 rounded">Admin Utama 1</span>
+                            <h3 class="text-base font-bold text-white mt-1">Raven Support Fast Response</h3>
+                            <p class="text-xs text-zinc-300/75">Layanan Order Nokos & Jasa Bug</p>
+                            <a href="https://wa.me/6285601099994?text=Halo%20Admin%20Raven%20Market" target="_blank" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-zinc-200 hover:text-white transition-colors">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel card-glow card-shine p-5 rounded-2xl flex items-center gap-4 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-zinc-400 to-zinc-700 p-0.5 shrink-0">
+                            <img src="https://i.imgur.com/CQn7ePS.jpeg?text=Admin2" alt="Admin 2 Raven Market" class="w-full h-full object-cover rounded-[14px]">
+                        </div>
+                        <div class="flex-grow relative z-10">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-white bg-white/15 border border-white/20 px-2 py-0.5 rounded">Admin Cadangan 2</span>
+                            <h3 class="text-base font-bold text-white mt-1">Raven Secondary Support</h3>
+                            <p class="text-xs text-zinc-300/75">Bantuan Pembayaran & Komplain</p>
+                            <a href="https://wa.me/6285601099994?text=Halo%20Admin%202%20Raven%20Market" target="_blank" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-zinc-200 hover:text-white transition-colors">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes text-zinc-300"></i> Saluran Resmi & Sosial Media
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="https://whatsapp.com/channel/0029VbEy6ShAO7RPphfsOf3V" target="_blank" class="glass-panel card-glow p-4 rounded-xl flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">Saluran WhatsApp</h4>
+                                <p class="text-[10px] text-zinc-300/75">Update Stok & Promo</p>
+                            </div>
+                        </a>
+
+                        <a href="https://tiktok.com/@axellmarketid" target="_blank" class="glass-panel card-glow p-4 rounded-xl flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">TikTok Official</h4>
+                                <p class="text-[10px] text-zinc-300/75">Review & Testimoni</p>
+                            </div>
+                        </a>
+
+                        <a href="https://t.me/Vxell2" target="_blank" class="glass-panel card-glow p-4 rounded-xl flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">Grup Telegram</h4>
+                                <p class="text-[10px] text-zinc-300/75">Komunitas Pembeli</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-panel gradient-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-zinc-300"></i> Kirim Pesan Cepat ke Admin
+                    </h3>
+                    <p class="text-xs text-zinc-300/80 mb-4">Isi formulir ini untuk langsung terhubung ke WhatsApp Admin dengan format pesan otomatis.</p>
+
+                    <form id="quick-message-form" onsubmit="sendQuickMessage(event)" class="space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] text-zinc-200 mb-1">Nama Anda</label>
+                                <input type="text" id="cust-name" required placeholder="Contoh: Rina" class="w-full px-3 py-2.5 rounded-xl text-xs text-white placeholder-zinc-400 focus:outline-none transition-all duration-300">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-zinc-200 mb-1">Topik Layanan</label>
+                                <select id="cust-topic" class="w-full px-3 py-2.5 rounded-xl text-xs text-zinc-200 focus:outline-none transition-all duration-300 cursor-pointer">
+                                    <option value="Nokos Virtual" class="bg-zinc-900">Order Nokos Virtual</option>
+                                    <option value="Jasa Bug WhatsApp" class="bg-zinc-900">Jasa Bug WhatsApp</option>
+                                    <option value="Kendala QRIS" class="bg-zinc-900">Kendala Pembayaran QRIS</option>
+                                    <option value="Pertanyaan Lain" class="bg-zinc-900">Pertanyaan Umum</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-zinc-200 mb-1">Pesan Anda</label>
+                            <textarea id="cust-message" rows="3" required placeholder="Tuliskan detail pesanan atau pertanyaan di sini..." class="w-full px-3 py-2.5 rounded-xl text-xs text-white placeholder-zinc-400 focus:outline-none transition-all duration-300"></textarea>
+                        </div>
+                        <button type="submit" class="btn-gradient w-full py-2.5 rounded-xl font-bold text-xs text-white flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Pesan via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-nav border-t border-white/15 px-2 py-2 pb-safe">
+        <div class="flex items-center justify-around">
+            <button onclick="switchTab('nokos')" id="mobile-btn-nokos" class="mobile-tab-btn flex flex-col items-center justify-center text-zinc-400 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-sim-card text-base mb-1"></i>
+                <span>Nokos</span>
+            </button>
+            <button onclick="switchTab('services')" id="mobile-btn-services" class="mobile-tab-btn flex flex-col items-center justify-center text-zinc-400 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-triangle-exclamation text-base mb-1"></i>
+                <span>Jasa Bug</span>
+            </button>
+            <button onclick="switchTab('qris')" id="mobile-btn-qris" class="mobile-tab-btn flex flex-col items-center justify-center text-zinc-400 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-qrcode text-base mb-1"></i>
+                <span>QRIS</span>
+            </button>
+            <button onclick="switchTab('contact')" id="mobile-btn-contact" class="mobile-tab-btn flex flex-col items-center justify-center text-zinc-400 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-headset text-base mb-1"></i>
+                <span>Kontak</span>
+            </button>
+        </div>
+    </nav>
+
+    <footer class="glass-nav border-t border-white/15 py-6 px-4 text-center text-xs text-zinc-300/75 mt-12 mb-12 md:mb-0">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>&copy; 2026 <span class="gradient-text font-bold">Raven Market</span>. All Rights Reserved.</p>
+            <p class="text-[11px] flex items-center gap-1.5">Frosted Silver Glass Store <span>🤍🩶</span></p>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL PESANAN -->
+    <div id="order-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="modal-anim glass-panel max-w-md w-full rounded-2xl border border-white/30 p-6 relative shadow-neon-glow">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-300 hover:text-white hover:rotate-90 text-lg transition-all duration-300">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-white/15 border border-white/25 text-white flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white" id="modal-item-title">Detail Pesanan</h3>
+                    <p class="text-xs text-zinc-300 font-semibold" id="modal-item-price">Rp 0</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 my-4 bg-white/5 p-3.5 rounded-xl border border-white/15 text-xs">
+                <div class="flex justify-between text-zinc-300/80">
+                    <span>Layanan/Kategori:</span>
+                    <span class="text-white font-medium" id="modal-item-platform">-</span>
+                </div>
+                <div class="flex justify-between text-zinc-300/80">
+                    <span>Status Garansi:</span>
+                    <span class="text-zinc-200 font-medium" id="modal-item-guarantee">Garansi Resmi Toko</span>
+                </div>
+                <div class="flex justify-between text-zinc-300/80">
+                    <span>Proses:</span>
+                    <span class="text-white font-medium">Instan via WhatsApp</span>
+                </div>
+            </div>
+
+            <div id="modal-quantity-section" class="my-4 rounded-xl border border-white/20 bg-white/5 p-4">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-xs font-bold text-white">Atur Nominal Pesanan</p>
+                        <p class="text-[10px] text-zinc-300/75 mt-1">Tambah atau kurangi jumlah pesanan</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="changeOrderQuantity(-1)" aria-label="Kurangi nominal"
+                            class="w-9 h-9 rounded-lg border border-white/25 bg-white/10 text-white font-bold hover:bg-white/20">−</button>
+                        <span id="modal-quantity" class="min-w-8 text-center text-lg font-extrabold text-white">1</span>
+                        <button type="button" onclick="changeOrderQuantity(1)" aria-label="Tambah nominal"
+                            class="w-9 h-9 rounded-lg border border-white/35 bg-white/10 text-white font-bold hover:bg-white/20">+</button>
+                    </div>
+                </div>
+                <div class="mt-3 flex justify-between border-t border-white/15 pt-3 text-xs">
+                    <span class="text-zinc-300/80">Total nominal</span>
+                    <strong id="modal-total-price" class="text-base gradient-text">Rp 0</strong>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <button type="button" onclick="goToQrisWithOrder()" class="btn-outline w-full py-2.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-qrcode text-sm"></i> Bayar QRIS & Upload Bukti
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="closeModal()" class="w-1/3 py-2.5 rounded-xl bg-white/5 hover:bg-white/15 text-zinc-300 font-bold text-xs border border-white/15 transition-colors">
+                        Batal
+                    </button>
+                    <a id="modal-wa-btn" href="#" target="_blank" class="btn-gradient w-2/3 py-2.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Pesanan WA
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ZOOM QR -->
+    <div id="zoom-modal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 cursor-pointer" onclick="this.classList.add('hidden'); this.classList.remove('flex');">
+        <div class="modal-anim relative max-w-sm w-full bg-white p-4 rounded-2xl">
+            <img src="https://i.imgur.com/du0ynNS.jpeg?text=QRIS+RAVEN+MARKET" alt="QRIS Zoom" class="w-full h-auto rounded-lg">
+            <p class="text-center text-black text-xs font-bold mt-2">Klik di mana saja untuk menutup</p>
+        </div>
+    </div>
+
+    <!-- WELCOME POPUP -->
+    <div id="welcome-popup" class="fixed inset-0 z-[70] bg-black/65 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="welcome-popup-anim glass-panel max-w-sm w-full rounded-3xl border border-white/30 p-7 text-center relative overflow-hidden shadow-neon-glow">
+
+            <div class="absolute -top-16 -left-16 w-40 h-40 bg-white/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -right-16 w-40 h-40 bg-white/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <span class="sparkle" style="top: 20%; left: 15%; animation-delay: 0s;">✨</span>
+            <span class="sparkle" style="top: 15%; right: 18%; animation-delay: 0.6s;">🤍</span>
+            <span class="sparkle" style="top: 65%; left: 10%; animation-delay: 1.2s;">🌫️</span>
+            <span class="sparkle" style="top: 70%; right: 12%; animation-delay: 1.8s;">✨</span>
+
+            <div class="relative z-10">
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-white/50 to-zinc-600 p-0.5 mx-auto shadow-neon-pink mb-4 float-anim">
+                    <img src="https://i.imgur.com/CQn7ePS.jpeg" alt="Raven Market" class="w-full h-full object-cover rounded-[14px]">
+                </div>
+
+                <h2 class="text-xl font-extrabold text-white leading-tight">
+                    Hai, Selamat Datang di
+                    <br>
+                    <span class="gradient-text text-2xl">RAVEN MARKET</span>
+                    <span class="emoji-wave">🥴</span>
+                </h2>
+
+                <p class="text-xs text-zinc-200/85 mt-3 leading-relaxed">
+                    Terima kasih sudah mampir! 😠
+                    <br>
+                    Silakan pilih layanan yang kamu butuhkan — <b class="text-white">Nokos OTP</b>, <b class="text-white">Jasa Bug WA</b>, atau langsung bayar via <b class="text-white">QRIS</b>.
+                </p>
+
+                <div class="mt-5 flex items-center justify-center gap-2">
+                    <button onclick="closeWelcome()" class="btn-gradient px-5 py-2.5 rounded-xl text-white font-bold text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-rocket"></i> Mulai Belanja
+                    </button>
+                    <button onclick="closeWelcome()" class="btn-outline px-4 py-2.5 rounded-xl text-zinc-200 font-semibold text-xs">
+                        Nanti Saja
+                    </button>
+                </div>
+
+                <p class="text-[10px] text-zinc-300/70 mt-3">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> 100% Aman & Bergaransi
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BACKGROUND MUSIC ============ -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://www.image2url.com/r2/default/audio/1794972231526-e33fbffe-4acc-433f-beb0-e9a66acdf5fb.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle"
+            class="fixed bottom-24 md:bottom-8 right-4 md:right-6 z-40 w-12 h-12 rounded-full glass-panel border border-white/30 text-white flex items-center justify-center shadow-neon-pink hover:scale-110 active:scale-95 transition-all duration-300"
+            style="display: none;"
+            aria-label="Toggle Music">
+        <i id="music-icon" class="fa-solid fa-volume-xmark text-lg"></i>
+    </button>
+
+    <script>
+        const nokosData = [
+            { id: 1, name: 'Nokos WhatsApp ID 🇮🇩', country: 'ID', countryName: 'Indonesia', platform: 'WhatsApp', price: 'Rp 10.000', stock: 'Ready', badge: 'Terlaris' },
+            { id: 2, name: 'Nokos WhatsApp US 🇺🇸', country: 'US', countryName: 'Amerika Serikat', platform: 'WhatsApp', price: 'Rp 48.000', stock: 'Ready', badge: 'Fast OTP' },
+            { id: 3, name: 'Nokos MY 🇲🇾', country: 'MY', countryName: 'Malaysia', platform: 'WhatsApp', price: 'Rp 59.000', stock: 'Ready', badge: 'Garansi' },
+            { id: 4, name: 'Nokos Philipina 🇵🇭', country: 'PH', countryName: 'Philipina', platform: 'WhatsApp', price: 'Rp 15.000', stock: 'Ready', badge: 'Fresh' },
+            { id: 5, name: 'Nokos Inggris (UK) 🇬🇧', country: 'ID', countryName: 'United Kingdom', platform: 'TikTok', price: 'Rp 29.000', stock: 'Ready', badge: 'Super Cheap' },
+            { id: 6, name: 'Nokos Jepang 🇯🇵', country: 'ID', countryName: 'Japan', platform: 'WhatsApp', price: 'Rp 22.000', stock: 'Ready', badge: 'Recom' },
+            { id: 7, name: 'Nokos Korea 🇰🇷', country: 'ID', countryName: 'Korea', platform: 'WhatsApp', price: 'Rp 27.000', stock: 'Proses Fast', badge: 'Hot' },
+            { id: 8, name: 'Nokos WhatsApp RU 🇷🇺', country: 'RU', countryName: 'Rusia', platform: 'WhatsApp', price: 'Rp 33.000', stock: 'Ready', badge: 'Langka' }
+        ];
+
+        const servicesData = [
+            { id: 101, title: 'Jasa Bug WA', desc: 'Bug whatsapp yang di artikan memberi virtex kepada korban selama waktu tertata.', price: 'Rp 10.000 - 20.000', specs: ['Garansi refund tidak c1', 'Proses cepat 1-24 Jam', 'Metode aman teruji'], badge: 'Top Service' },
+            { id: 102, title: 'Jasa Band gb', desc: 'Band gb hanya bertahan 24jam jika di tinjau, Band akan permanen ketika hoki', price: 'Rp 30.000', specs: ['Band gb', 'Aman', 'Panduan pencegahan'], badge: 'Paling Laris!' },
+            { id: 103, title: 'Jasa Perbaikan Sesi & Clean Database WA', desc: 'Pembersihan chating berlebih dan perbaikan database agar aplikasi kembali ringan dan responsif.', price: 'Rp 15.000', specs: ['Aman tanpa hilang kontak penting', 'Proses aman jarak jauh', 'Anti lag'], badge: 'Fast Process' },
+            { id: 104, title: 'Panel legal unli', desc: 'Hosting cPanel khusus untuk menjalankan script bot WhatsApp aktif 24 jam non-stop.', price: 'Rp 20.000 / Bulan', specs: ['RAM 2GB Stabil', 'Uptime 99.9%', 'Full akses panel'], badge: 'Recommended' },
+            { id: 105, title: 'Sewa bot jpm/assistent/store', desc: 'Pemasangan script bot toko online untuk rekap order, cek harga, dan balasan chat otomatis.', price: 'Rp 15.000', specs: ['Fitur kustom sesuai request', 'Bonus panduan operasional', 'Support penuh admin'], badge: 'Auto Cuan' }
+        ];
+
+        let uploadedProofFile = null;
+        let uploadedProofDataURL = '';
+
+        function showToast(text) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 bg-white/15 backdrop-blur-xl border border-white/35 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-neon-glow z-[90] modal-anim text-center max-w-xs';
+            toast.innerText = text;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s';
+                setTimeout(() => toast.remove(), 400);
+            }, 2600);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const enterButton = document.getElementById('enter-market');
+            if (enterButton) {
+                enterButton.addEventListener('click', () => {
+                    document.body.classList.remove('login-locked');
+                    const login = document.getElementById('login-screen');
+                    login.style.transition = 'opacity .45s ease, visibility .45s ease';
+                    login.style.opacity = '0';
+                    login.style.visibility = 'hidden';
+                    setTimeout(() => login.remove(), 500);
+                });
+            }
+
+            renderNokos(nokosData);
+            renderServices(servicesData);
+            switchTab('nokos');
+            setupDragAndDrop();
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${tabName}`);
+            if (targetPage) targetPage.classList.add('active');
+
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.className = 'nav-tab-btn px-5 py-2 rounded-full text-sm font-medium text-zinc-300/80 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2';
+            });
+            document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+                btn.className = 'mobile-tab-btn flex flex-col items-center justify-center text-zinc-400 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300';
+            });
+
+            const activeNav = document.getElementById(`nav-btn-${tabName}`);
+            if (activeNav) {
+                activeNav.className = 'nav-tab-btn px-5 py-2 rounded-full text-sm font-bold text-white bg-white/20 border border-white/30 shadow-neon-pink transition-all duration-300 flex items-center gap-2';
+            }
+
+            const activeMobile = document.getElementById(`mobile-btn-${tabName}`);
+            if (activeMobile) {
+                activeMobile.className = 'mobile-tab-btn flex flex-col items-center justify-center text-white py-1 px-3 rounded-lg text-[10px] font-bold bg-white/15 border border-white/30 shadow-[0_0_12px_rgba(255,255,255,0.16)] transition-all duration-300';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderNokos(items) {
+            const container = document.getElementById('nokos-container');
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 glass-panel rounded-2xl">
+                        <i class="fa-solid fa-box-open text-4xl text-zinc-500 mb-3 block"></i>
+                        <p class="text-sm text-zinc-300/70">Layanan tidak ditemukan untuk kata kunci tersebut.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="glass-panel card-glow card-shine p-4 rounded-2xl flex flex-col justify-between group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-xl group-hover:bg-white/15 transition-colors duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 text-white border border-white/25">${item.badge}</span>
+                            <span class="text-[10px] font-medium text-zinc-200 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span> ${item.stock}
+                            </span>
+                        </div>
+
+                        <h3 class="text-sm font-bold text-white group-hover:text-zinc-100 transition-colors duration-300">${item.name}</h3>
+                        <p class="text-xs text-zinc-300/80 mt-1">Negara: <span class="text-white">${item.countryName}</span></p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-white/15 flex items-center justify-between relative z-10">
+                        <div>
+                            <span class="block text-[10px] text-zinc-400">Harga Satuan</span>
+                            <span class="text-base font-extrabold gradient-text">${item.price}</span>
+                        </div>
+                        <button onclick="openOrderModal('${item.name}', '${item.price}', '${item.platform}')" class="btn-outline px-3.5 py-2 rounded-xl text-white font-bold text-xs flex items-center gap-1.5">
+                            Beli <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderServices(items) {
+            const container = document.getElementById('services-container');
+            container.innerHTML = items.map(item => `
+                <div class="glass-panel card-glow card-shine p-5 rounded-2xl flex flex-col justify-between relative group">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 text-white border border-white/25">${item.badge}</span>
+                            <i class="fa-solid fa-triangle-exclamation text-zinc-300 text-sm"></i>
+                        </div>
+
+                        <h3 class="text-base font-bold text-white group-hover:text-zinc-100 transition-colors duration-300">${item.title}</h3>
+                        <p class="text-xs text-zinc-300/80 mt-2 leading-relaxed">${item.desc}</p>
+
+                        <div class="my-4 space-y-1.5">
+                            ${item.specs.map(spec => `
+                                <div class="flex items-center gap-2 text-xs text-zinc-200">
+                                    <i class="fa-solid fa-circle-check text-white text-[10px]"></i>
+                                    <span>${spec}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/15 flex items-center justify-between relative z-10">
+                        <div>
+                            <span class="block text-[10px] text-zinc-400">Tarif Layanan</span>
+                            <span class="text-sm font-extrabold text-white">${item.price}</span>
+                        </div>
+                        <button onclick="openOrderModal('${item.title}', '${item.price}', 'Jasa Bug WA')" class="btn-gradient px-4 py-2 rounded-xl text-white font-bold text-xs flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Pesan
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterNokos() {
+            const searchValue = document.getElementById('search-nokos').value.toLowerCase();
+            const countryValue = document.getElementById('filter-country').value;
+
+            const filtered = nokosData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchValue) || item.platform.toLowerCase().includes(searchValue);
+                const matchesCountry = countryValue === 'ALL' || item.country === countryValue;
+                return matchesSearch && matchesCountry;
+            });
+
+            renderNokos(filtered);
+        }
+
+        let currentOrder = { title: '', unitPrice: 0, platform: '', quantity: 1 };
+
+        function formatRupiah(value) {
+            return 'Rp ' + Math.max(0, value).toLocaleString('id-ID');
+        }
+
+        function updateOrderSummary() {
+            const total = currentOrder.unitPrice * currentOrder.quantity;
+            document.getElementById('modal-quantity').innerText = currentOrder.quantity;
+            document.getElementById('modal-total-price').innerText = formatRupiah(total);
+            document.getElementById('modal-item-price').innerText =
+                `${formatRupiah(currentOrder.unitPrice)} / item`;
+            const message = `Halo Admin Raven Market, saya ingin memesan:\n\n📌 *Layanan*: ${currentOrder.title}\n🏷️ *Kategori*: ${currentOrder.platform}\n🔢 *Jumlah*: ${currentOrder.quantity}\n💰 *Harga satuan*: ${formatRupiah(currentOrder.unitPrice)}\n💵 *Total nominal*: ${formatRupiah(total)}\n\nMohon info ketersediaan stok & petunjuk pembayarannya. Terima kasih!`;
+            document.getElementById('modal-wa-btn').href =
+                `https://wa.me/6285601099994?text=${encodeURIComponent(message)}`;
+        }
+
+        function changeOrderQuantity(amount) {
+            currentOrder.quantity = Math.max(1, Math.min(99, currentOrder.quantity + amount));
+            updateOrderSummary();
+        }
+
+        function openOrderModal(title, price, platform) {
+            const firstPrice = String(price).split('-')[0];
+            currentOrder = {
+                title,
+                unitPrice: Number(firstPrice.replace(/[^0-9]/g, '')) || 0,
+                platform,
+                quantity: 1
+            };
+            document.getElementById('modal-item-title').innerText = title;
+            document.getElementById('modal-item-platform').innerText = platform;
+
+            document.getElementById('modal-quantity-section').classList.remove('hidden');
+            updateOrderSummary();
+
+            const modal = document.getElementById('order-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Teruskan nominal & detail pesanan ke Tab QRIS
+        function goToQrisWithOrder() {
+            const total = currentOrder.unitPrice * currentOrder.quantity;
+            closeModal();
+            switchTab('qris');
+            const nominalInput = document.getElementById('qris-nominal-input');
+            const noteInput = document.getElementById('qris-order-note');
+            if (nominalInput && total > 0) {
+                nominalInput.value = total.toLocaleString('id-ID');
+            }
+            if (noteInput && currentOrder.title) {
+                noteInput.value = `${currentOrder.title} (${currentOrder.quantity}x)`;
+            }
+            showToast('Nominal pesanan otomatis diisi di halaman QRIS');
+        }
+
+        /* ================================================================
+           LOGIKA UPLOAD BUKTI TRANSFER & KIRIM NOMINAL KE WHATSAPP
+           ================================================================ */
+        function formatNominalInput(input) {
+            const raw = input.value.replace(/[^0-9]/g, '');
+            if (!raw) {
+                input.value = '';
+                return;
+            }
+            input.value = Number(raw).toLocaleString('id-ID');
+        }
+
+        function processSelectedFile(file) {
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                showToast('⚠️ Harap unggah file gambar (JPG/PNG/WEBP).');
+                return;
+            }
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('⚠️ Ukuran file maksimal 10MB.');
+                return;
+            }
+
+            uploadedProofFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedProofDataURL = e.target.result;
+                document.getElementById('upload-preview-img').src = uploadedProofDataURL;
+                document.getElementById('upload-file-name').innerText = file.name;
+                document.getElementById('upload-placeholder').classList.add('hidden');
+                document.getElementById('upload-preview-box').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleProofUpload(event) {
+            const file = event.target.files[0];
+            processSelectedFile(file);
+        }
+
+        function removeProofFile(event) {
+            event.stopPropagation();
+            uploadedProofFile = null;
+            uploadedProofDataURL = '';
+            document.getElementById('qris-proof-file').value = '';
+            document.getElementById('upload-preview-img').src = '';
+            document.getElementById('upload-preview-box').classList.add('hidden');
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+        }
+
+        function setupDragAndDrop() {
+            const dropzone = document.getElementById('upload-dropzone');
+            if (!dropzone) return;
+
+            ['dragenter', 'dragover'].forEach(evtName => {
+                dropzone.addEventListener(evtName, (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('dragover');
+                });
+            });
+
+            ['dragleave', 'drop'].forEach(evtName => {
+                dropzone.addEventListener(evtName, (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('dragover');
+                });
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                const file = e.dataTransfer.files[0];
+                processSelectedFile(file);
+            });
+        }
+
+        async function copyImageToClipboard(dataURL) {
+            try {
+                if (!navigator.clipboard || !window.ClipboardItem) return false;
+                const img = new Image();
+                img.src = dataURL;
+                await new Promise((resolve) => { img.onload = resolve; });
+
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                const pngBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+                if (!pngBlob) return false;
+
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/png': pngBlob })
+                ]);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        async function submitPaymentProof(event) {
+            event.preventDefault();
+
+            const nominalVal = document.getElementById('qris-nominal-input').value.trim();
+            const orderNote = document.getElementById('qris-order-note').value.trim();
+
+            if (!nominalVal) {
+                showToast('⚠️ Masukkan nominal pesanan terlebih dahulu!');
+                document.getElementById('qris-nominal-input').focus();
+                return;
+            }
+
+            if (!uploadedProofFile || !uploadedProofDataURL) {
+                showToast('⚠️ Silakan upload foto bukti transfer terlebih dahulu!');
+                document.getElementById('qris-proof-file').click();
+                return;
+            }
+
+            const copied = await copyImageToClipboard(uploadedProofDataURL);
+
+            const waMessage =
+                `Halo Admin Raven Market, saya telah melakukan pembayaran via QRIS.\n\n` +
+                `💵 *Nominal Pesanan*: Rp ${nominalVal}\n` +
+                (orderNote ? `📌 *Pesanan / Layanan*: ${orderNote}\n` : '') +
+                `🖼️ *File Bukti Transfer*: ${uploadedProofFile.name}\n\n` +
+                `Berikut saya lampirkan foto bukti transfernya. Mohon segera diproses. Terima kasih!`;
+
+            if (copied) {
+                showToast('✅ Foto bukti disalin! Tempel (Paste) di chat WhatsApp Admin.');
+            } else {
+                showToast('✅ Membuka WhatsApp Admin. Silakan lampirkan foto bukti transfer Anda.');
+            }
+
+            setTimeout(() => {
+                window.open(`https://wa.me/6285601099994?text=${encodeURIComponent(waMessage)}`, '_blank');
+            }, 650);
+        }
+
+        function zoomQR() {
+            const zoomModal = document.getElementById('zoom-modal');
+            zoomModal.classList.remove('hidden');
+            zoomModal.classList.add('flex');
+        }
+
+        function downloadQR() {
+            const link = document.createElement('a');
+            link.href = 'https://drive.google.com/file/d/1WhTWw9qgarc3Gb1kd1xwlvLUcZ18tYcG/view?usp=drivesdk';
+            link.target = '_blank';
+            link.download = 'QRIS-RAVEN-MARKET.jpeg';
+            link.click();
+        }
+
+        function copyNMID() {
+            const tempInput = document.createElement('input');
+            tempInput.value = 'ID1029384756102';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('✅ NMID Berhasil Disalin!');
+        }
+
+        function sendQuickMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const topic = document.getElementById('cust-topic').value;
+            const message = document.getElementById('cust-message').value;
+
+            const fullText = `Halo Admin Raven Market,\n\nNama: *${name}*\nTopik: *${topic}*\nPesan: ${message}`;
+            window.open(`https://wa.me/6285601099994?text=${encodeURIComponent(fullText)}`, '_blank');
+        }
+
+        document.getElementById('order-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        document.getElementById('zoom-modal').addEventListener('click', function(e) {
+            if (e.target === this) { this.classList.add('hidden'); this.classList.remove('flex'); }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (!window._introFinished) return;
+                closeModal();
+                const z = document.getElementById('zoom-modal');
+                z.classList.add('hidden'); z.classList.remove('flex');
+                closeWelcome();
+            }
+        });
+
+        function openWelcome() {
+            const popup = document.getElementById('welcome-popup');
+            if (!popup) return;
+            popup.classList.remove('hidden');
+            popup.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWelcome() {
+            const popup = document.getElementById('welcome-popup');
+            if (!popup) return;
+            popup.classList.add('hidden');
+            popup.classList.remove('flex');
+            document.body.style.overflow = '';
+            try { sessionStorage.setItem('raven_welcome_shown', '1'); } catch (e) {}
+        }
+
+        document.addEventListener('click', (e) => {
+            const popup = document.getElementById('welcome-popup');
+            if (popup && e.target === popup) closeWelcome();
+        });
+
+        /* ================================================================
+           INTRO VIDEO + BACKGROUND MUSIC LOGIC
+           ================================================================ */
+        (function () {
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVideo   = document.getElementById('intro-video');
+            const skipBtn      = document.getElementById('skip-btn');
+            const bgMusic      = document.getElementById('bg-music');
+            const musicToggle  = document.getElementById('music-toggle');
+            const musicIcon    = document.getElementById('music-icon');
+
+            window._introFinished = false;
+            document.body.style.overflow = 'hidden';
+
+            function finishIntro() {
+                if (window._introFinished) return;
+                window._introFinished = true;
+
+                introOverlay.classList.add('hide');
+
+                setTimeout(() => {
+                    introOverlay.style.display = 'none';
+                    document.body.style.overflow = '';
+
+                    musicToggle.style.display = 'flex';
+
+                    bgMusic.volume = 0.35;
+                    const playPromise = bgMusic.play();
+                    if (playPromise && playPromise.then) {
+                        playPromise.catch(() => {});
+                    }
+
+                    let shown = false;
+                    try { shown = sessionStorage.getItem('raven_welcome_shown') === '1'; } catch (e) {}
+                    if (!shown && typeof openWelcome === 'function') {
+                        setTimeout(openWelcome, 500);
+                    }
+                }, 800);
+            }
+
+            skipBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                finishIntro();
+            });
+
+            introOverlay.addEventListener('click', finishIntro);
+            introVideo.addEventListener('ended', finishIntro);
+
+            introVideo.addEventListener('error', () => {
+                setTimeout(finishIntro, 1000);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !window._introFinished) {
+                    finishIntro();
+                }
+            });
+
+            musicToggle.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(() => {});
+                } else {
+                    bgMusic.pause();
+                }
+            });
+
+            bgMusic.addEventListener('play', () => {
+                musicToggle.classList.add('playing');
+                musicIcon.className = 'fa-solid fa-music text-lg';
+            });
+            bgMusic.addEventListener('pause', () => {
+                musicToggle.classList.remove('playing');
+                musicIcon.className = 'fa-solid fa-volume-xmark text-lg';
+            });
+        })();
+    </script>
+</body>
+</html>
